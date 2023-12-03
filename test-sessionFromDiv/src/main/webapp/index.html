@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click and Set Receiver in JSession</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+      function setUserAsReceiver(receiverName) {
+        // AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/setReceiver', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log('Data sent to server successfully.');
+          }
+        };
+        xhr.send('receiver=' + encodeURIComponent(receiverName));
+      }
+
+      document.getElementById('userButton1').addEventListener('click', function() {
+        setUserAsReceiver('User1');
+      });
+
+      document.getElementById('userButton2').addEventListener('click', function() {
+        setUserAsReceiver('User2');
+      });
+
+    });
+  </script>
+</head>
+<body>
+
+<button id="userButton1">User1</button>
+<button id="userButton2">User2</button>
+
+</body>
+</html>
