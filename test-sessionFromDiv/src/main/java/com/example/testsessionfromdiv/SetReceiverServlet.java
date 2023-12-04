@@ -7,7 +7,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 @WebServlet("/setReceiver")
-public class HelloServlet extends HttpServlet {
+public class SetReceiverServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String receiverName = request.getParameter("receiver");
 

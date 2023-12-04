@@ -6,18 +6,23 @@
   <title>Click and Set Receiver in JSession</title>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-
       function setUserAsReceiver(receiverName) {
-        // AJAX
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/setReceiver', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log('Data sent to server successfully.');
-          }
-        };
-        xhr.send('receiver=' + encodeURIComponent(receiverName));
+        fetch('/setReceiver', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: 'receiver=' + encodeURIComponent(receiverName)
+        })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                  }
+                  console.log('Data sent to server successfully.');
+                })
+                .catch(error => {
+                  console.error('There was a problem with the fetch operation:', error);
+                });
       }
 
       document.getElementById('userButton1').addEventListener('click', function() {
@@ -27,6 +32,7 @@
       document.getElementById('userButton2').addEventListener('click', function() {
         setUserAsReceiver('User2');
       });
+
 
     });
   </script>
